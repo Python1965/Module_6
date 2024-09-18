@@ -47,7 +47,7 @@ class Vehicle:
     __COLOR_VARIANTS = ['blue', 'red', 'green', 'black', 'white'] # список допустимых цветов для окрашивания.
 
     def __init__(self, owner, model, color, power):
-        self.__owner = owner        # владелец транспорта (может меняться)
+        self.owner = owner        # владелец транспорта (может меняться)
         self.__model = model        # модель (марка) транспорта. (мы не можем менять  название модели)
         self.__engine_power = power # мощность двигателя. (мы не можем менять  мощность двигателя самостоятельно)
         self.__color = color        # название цвета. (мы не можем менять цвет автомобиля своими руками)
@@ -67,7 +67,7 @@ class Vehicle:
         print(self.get_model())
         print(self.get_horsepower())
         print(self.get_color())
-        print(f"Владелец: {self.__owner}")
+        print(f"Владелец: {self.owner}")
 
     def set_color(self, new_color):  # принимает аргумент new_color(str), меняет цвет __color на new_color,
                           # если он есть в списке __COLOR_VARIANTS,
