@@ -48,11 +48,11 @@
 #
 # # Что произошло: Хищник попытался съесть цветок и погиб, млекопитающее съело фрукт и насытилось.
 #
-#****************************************************************************************
+# ****************************************************************************************
 
 class Animal:
-    alive = True #(живой)
-    fed = False #(накормленный)
+    alive = True  # (живой)
+    fed = False  # (накормленный)
 
     def __init__(self, name):
         self.name = name
@@ -64,7 +64,7 @@ class Animal:
         else:
             print(f"{self.name} не стал есть {food.name}")
             self.alive = False
-            
+
 
 class Mammal(Animal):
     pass
@@ -74,20 +74,16 @@ class Predator(Animal):
 
 
 class Plant:
-    edible = False #(съедобность)
+    edible = False  # (съедобность)
 
     def __init__(self, name):
         self.name = name
 
 class Flower(Plant):
-    def __init__(self, name):
-        self.name = name
+    pass
 
 class Fruit(Plant):
     edible = True
-
-    def __init__(self, name):
-        self.name = name
 
 
 def start():
@@ -105,6 +101,7 @@ def start():
     a2.eat(p2)
     print(a1.alive)
     print(a2.fed)
+
 
 if __name__ == '__main__':
     start()
