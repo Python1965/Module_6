@@ -33,19 +33,17 @@
 #****************************************************************************************
 
 class Horse:    # класс описывающий лошадь
-    #x_distance  - пройденный путь.
-    sound = 'Frrr'  # звук, который издаёт лошадь.
     def __init__(self):
         self.x_distance = 0
+        self.sound = 'Frrr'
 
     def run(self, dx):   # dx - изменение дистанции, увеличивает x_distance на dx.
         self.x_distance += dx
 
 class Eagle:    # класс описывающий орла.
-    #y_distance - высота полёта
-    sound = 'I train, eat, sleep, and repeat' #  звук, который издаёт орёл (отсылка)
     def __init__(self):
         self.y_distance = 0
+        self.sound = 'I train, eat, sleep, and repeat'
 
     def fly(self, dy): # где dy - изменение дистанции, увеличивает y_distance на dy
         self.y_distance += dy
@@ -54,6 +52,7 @@ class Pegasus(Horse, Eagle):
     def __init__(self):
         Horse.__init__(self)
         Eagle.__init__(self)
+        
 
     def move(self, dx, dy): # где dx и dy - изменения дистанции.В этом методе должны запускаться
                             # наследованные методы run и fly соответственно.
