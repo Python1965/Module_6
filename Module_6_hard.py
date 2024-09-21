@@ -89,13 +89,10 @@
 class Figure:
     sides_count = 0
 
-    def __init__(self, color, *sides):
-        self.__sides = [0]          # список сторон (целые числа)
-        self.__color = [0, 0, 0]    # (список цветов формате RGB)
+    def __init__(self):
+        self.__sides = []           # список сторон (целые числа)
+        self.__color = []           # (список цветов формате RGB)
         self.filled = None          # (закрашенный, bool)
-
-        set_color(self, color)
-        set_sides(self, sides)
 
     def __len__(self):              # должен возвращать периметр фигуры.
         if self.sides_count == 0:
@@ -116,11 +113,11 @@ class Figure:
 
             return True
 
-    def set_color(self, new_color): # принимает параметры r, g, b - числа и изменяет атрибут __color на
+    def set_color(self, *new_color): # принимает параметры r, g, b - числа и изменяет атрибут __color на
                                     # соответствующие значения, предварительно проверив их на корректность.
                                     # Если введены некорректные данные, то цвет остаётся прежним.
 
-        if self.__is_valid_color(self, new_color):
+        if self.__is_valid_color(new_color):
             self.__color[0] = new_color[0]
             self.__color[1] = new_color[1]
             self.__color[2] = new_color[2]
@@ -142,10 +139,10 @@ class Figure:
 
         return True
 
-    def set_sides(self, *new_sides):  # должен принимать новые стороны, если их количество не равно
+    def set_sides(self, new_sides):  # должен принимать новые стороны, если их количество не равно
                                       # sides_count, то не изменять, в противном случае - менять.
 
-        if self.__is_valid_sides(self, new_sides):
+        if self.__is_valid_sides(new_sides):
             self.__sides = new_sides
 
     def get_sides(self):        # должен возвращать значение атрибута __sides
@@ -155,20 +152,36 @@ class Figure:
 class Circle(Figure):
     sides_count = 1
 
-    def __init__(self, color, sides):  # (Цвет, стороны)
+    def __init__(self, color, *side):  # (Цвет, стороны)
+        super().__init__()
+
+        self.__color = list(color)
+        self.__sides = list(side)
         self.__radius = 0       # рассчитать исходя из длины окружности (одной единственной стороны).
 
     def get_square(self):       # возвращает площадь круга (можно рассчитать как через длину,
-        pass                    # так и через радиус).
+                                # так и через радиус).
 
 class Triangle(Figure):
     sides_count = 3
+
+    def __init__(self, color, *side):  # (Цвет, стороны)
+        super().__init__()
+
+        self.__color = list(color)
+        self.__sides = list(side)
 
     def get_square(self):       # возвращает площадь треугольника.(можно рассчитать по формуле Герона)
         pass
 
 class Cube(Figure):
     sides_count = 12
+
+    def __init__(self, color, *side):  # (Цвет, стороны)
+        super().__init__()
+
+        self.__color = list(color)
+        self.__sides = list(side)
 
     def __init__(self):
         # super()   # Переопределить __sides сделав список из 12 одинаковых сторон (передаётся 1 сторона)
