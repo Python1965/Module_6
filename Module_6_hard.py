@@ -85,13 +85,14 @@
 #           то его стороны будут - [1, 1, 1, ....., 1]
 #
 #****************************************************************************************
+from math import pi as PI
 
 class Figure:
     sides_count = 0
 
     def __init__(self):
-        self.__sides = []           # список сторон (целые числа)
-        self.__color = []           # (список цветов формате RGB)
+        self.__sides = [0]           # список сторон (целые числа)
+        self.__color = [0, 0, 0]           # (список цветов формате RGB)
         self.filled = None          # (закрашенный, bool)
 
     def __len__(self):              # должен возвращать периметр фигуры.
@@ -139,11 +140,11 @@ class Figure:
 
         return True
 
-    def set_sides(self, new_sides):  # должен принимать новые стороны, если их количество не равно
+    def set_sides(self, *new_sides):  # должен принимать новые стороны, если их количество не равно
                                       # sides_count, то не изменять, в противном случае - менять.
 
         if self.__is_valid_sides(new_sides):
-            self.__sides = new_sides
+            self.__sides = list(new_sides)
 
     def get_sides(self):        # должен возвращать значение атрибута __sides
         return self.__sides
@@ -157,10 +158,12 @@ class Circle(Figure):
 
         self.__color = list(color)
         self.__sides = list(side)
-        self.__radius = 0       # рассчитать исходя из длины окружности (одной единственной стороны).
+        self.__radius = side[0] / (2 * PI)      # рассчитать исходя из длины окружности (одной единственной стороны).
 
     def get_square(self):       # возвращает площадь круга (можно рассчитать как через длину,
                                 # так и через радиус).
+
+            return PI * self.__radius ** 2
 
 class Triangle(Figure):
     sides_count = 3
@@ -197,18 +200,18 @@ def start():
     #
     # # Проверка на изменение цветов:
     circle1.set_color(55, 66, 77)  # Изменится
-    # print(circle1.get_color())
+    print(circle1.get_color())
     # cube1.set_color(300, 70, 15)  # Не изменится
     # print(cube1.get_color())
     #
     # # Проверка на изменение сторон:
     # cube1.set_sides(5, 3, 12, 4, 5)  # Не изменится
     # print(cube1.get_sides())
-    # circle1.set_sides(15)  # Изменится
-    # print(circle1.get_sides())
+    circle1.set_sides(15)  # Изменится
+    print(circle1.get_sides())
     #
     # # Проверка периметра (круга), это и есть длина:
-    # print(len(circle1))
+    print(len(circle1))
     #
     # # Проверка объёма (куба):
     # print(cube1.get_volume())
