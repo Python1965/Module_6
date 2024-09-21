@@ -90,7 +90,7 @@ from math import pi as PI
 class Figure:
     sides_count = 0
 
-    def __init__(self):
+    def __init__(self, color, side):
         self.__sides = [0]           # список сторон (целые числа)
         self.__color = [0, 0, 0]           # (список цветов формате RGB)
         self.filled = None          # (закрашенный, bool)
@@ -154,16 +154,17 @@ class Circle(Figure):
     sides_count = 1
 
     def __init__(self, color, *side):  # (Цвет, стороны)
-        super().__init__()
+        super().__init__(color, side)
+        self.__radius = self.get_sides()[0] / (2 * PI)      # рассчитать исходя из длины окружности (одной единственной стороны).
 
-        self.__color = list(color)
-        self.__sides = list(side)
-        self.__radius = side[0] / (2 * PI)      # рассчитать исходя из длины окружности (одной единственной стороны).
+    def set_sides(self, new_sides):
+        super().set_sides(new_sides)
+        self.__radius = self.get_sides()[0] / (2 * PI)
 
-    def get_square(self):       # возвращает площадь круга (можно рассчитать как через длину,
+    def get_square(self):       # `возвращает площадь круга (можно рассчитать как через длину,
                                 # так и через радиус).
 
-            return PI * self.__radius ** 2
+            return self.__radius ** 2 * PI
 
 class Triangle(Figure):
     sides_count = 3
@@ -212,6 +213,8 @@ def start():
     #
     # # Проверка периметра (круга), это и есть длина:
     print(len(circle1))
+    print(circle1.get_square())
+
     #
     # # Проверка объёма (куба):
     # print(cube1.get_volume())
