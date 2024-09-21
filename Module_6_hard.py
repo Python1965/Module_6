@@ -90,9 +90,9 @@ from math import pi as PI
 class Figure:
     sides_count = 0
 
-    def __init__(self, color, side):
-        self.__sides = [0]           # список сторон (целые числа)
-        self.__color = [0, 0, 0]           # (список цветов формате RGB)
+    def __init__(self, color, sides):
+        self.__sides = sides        # список сторон (целые числа)
+        self.__color = color        # (список цветов формате RGB)
         self.filled = None          # (закрашенный, bool)
 
     def __len__(self):              # должен возвращать периметр фигуры.
@@ -105,23 +105,22 @@ class Figure:
             return sum
 
     def __is_valid_color(self, color):  # принимает параметры r, g, b, который проверяет корректность
-                                        # переданных значений перед установкой нового цвета. Корректным цвет:
-                                        # все значения r, g и b - целые числа в диапазоне от 0 до 255 (включительно).
+                                        # переданных значений перед установкой нового цвета.
+                                        # Корректным цвет: все значения r, g и b - целые числа
+                                        # в диапазоне от 0 до 255 (включительно).
 
         for item in color:
             if not isinstance(item, int) or item < 1 or item > 255:
                 return False
 
-            return True
+        return True
 
     def set_color(self, *new_color): # принимает параметры r, g, b - числа и изменяет атрибут __color на
                                     # соответствующие значения, предварительно проверив их на корректность.
                                     # Если введены некорректные данные, то цвет остаётся прежним.
 
         if self.__is_valid_color(new_color):
-            self.__color[0] = new_color[0]
-            self.__color[1] = new_color[1]
-            self.__color[2] = new_color[2]
+            self.__color = list(new_color)
 
     def get_color(self):
         return self.__color
@@ -155,7 +154,8 @@ class Circle(Figure):
 
     def __init__(self, color, *side):  # (Цвет, стороны)
         super().__init__(color, side)
-        self.__radius = self.get_sides()[0] / (2 * PI)      # рассчитать исходя из длины окружности (одной единственной стороны).
+        self.__radius = self.get_sides()[0] / (2 * PI)      # рассчитать исходя из длины окружности
+                                                            # (одной единственной стороны).
 
     def set_sides(self, new_sides):
         super().set_sides(new_sides)
@@ -164,13 +164,13 @@ class Circle(Figure):
     def get_square(self):       # `возвращает площадь круга (можно рассчитать как через длину,
                                 # так и через радиус).
 
-            return self.__radius ** 2 * PI
+        return self.__radius ** 2 * PI
 
 class Triangle(Figure):
     sides_count = 3
 
-    def __init__(self, color, *side):  # (Цвет, стороны)
-        super().__init__(color, side)
+    def __init__(self, color, *sides):  # (Цвет, стороны)
+        super().__init__(color, sides)
 
     def get_square(self):       # возвращает площадь треугольника.(можно рассчитать по формуле Герона)
         sides = self.get_sides()
@@ -181,50 +181,48 @@ class Cube(Figure):
     sides_count = 12
 
     def __init__(self, color, *side):  # (Цвет, стороны)
-       # Переопределить __sides сделав список из 12 одинаковых сторон (передаётся 1 сторона)
-        super().__init__()
-        pass
+        # Переопределить __sides сделав список из 12 одинаковых сторон (передаётся 1 сторона)
+        sides = list(side) * 12
+        super().__init__(color, sides)
 
     def get_volume(self):  #возвращает объём куба.
-        pass
+        return self.get_sides()[0] **3
 
 
 def start():
     circle1 = Circle((200, 200, 100), 10)  # (Цвет, стороны)
     triangle1 = Triangle((111, 70, 65), 6, 6, 6)
-    # cube1 = Cube((222, 35, 130), 6)
+    cube1 = Cube((222, 35, 130), 8)
 
-    # # Проверка на изменение цветов:
+    # Проверка на изменение цветов:
     circle1.set_color(55, 66, 77)  # Изменится
     print(circle1.get_color())
 
     triangle1.set_color(110, 132, 154)  # Изменится
     print(triangle1.get_color())
 
-    # cube1.set_color(300, 70, 15)  # Не изменится
-    # print(cube1.get_color())
+    cube1.set_color(155, 70, 15)  # Не изменится
+    print(cube1.get_color())
 
-    # # Проверка на изменение сторон:
+    # Проверка на изменение сторон:
     circle1.set_sides(15)  # Изменится
     print(circle1.get_sides())
 
     triangle1.set_sides(12, 12, 12)  # Bзменится
     print(triangle1.get_sides())
 
-    # cube1.set_sides(5, 3, 12, 4, 5)  # Не изменится
-    # print(cube1.get_sides())
+    cube1.set_sides(5, 3, 12, 4, 5)  # Не изменится
+    print(cube1.get_sides())
 
-    #
-    # # Проверка периметра (круга), это и есть длина:
+    # Проверка периметра
     print(len(circle1))
     print(circle1.get_square())
 
     print(len(triangle1))
     print(triangle1.get_square())
 
-    #
-    # # Проверка объёма (куба):
-    # print(cube1.get_volume())
+    # Проверка объёма (куба):
+    print(cube1.get_volume())
 
 if __name__ == '__main__':
     start()
