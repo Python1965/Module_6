@@ -170,10 +170,7 @@ class Triangle(Figure):
     sides_count = 3
 
     def __init__(self, color, *side):  # (Цвет, стороны)
-        super().__init__()
-
-        self.__color = list(color)
-        self.__sides = list(side)
+        super().__init__(color, side)
 
     def get_square(self):       # возвращает площадь треугольника.(можно рассчитать по формуле Герона)
         pass
