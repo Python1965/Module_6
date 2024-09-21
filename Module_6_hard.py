@@ -222,6 +222,7 @@ def start():
     print(triangle1.get_square())
 
     # Проверка объёма (куба):
+    print(len(cube1))
     print(cube1.get_volume())
 
 if __name__ == '__main__':
