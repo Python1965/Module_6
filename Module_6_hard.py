@@ -28,7 +28,8 @@
 # Каждый объект класса Figure должен обладать следующими атрибутами:
 #
 # Атрибуты(инкапсулированные):
-#   - __sides(список сторон (целые числа)), __color(список цветов в формате RGB)
+#   - __sides(список сторон (целые числа)),
+#   = __color(список цветов в формате RGB)
 # Атрибуты(публичные):
 #   - filled(закрашенный, bool)
 #
@@ -88,10 +89,13 @@
 class Figure:
     sides_count = 0
 
-    def __init__(self):
-        self.__sides = []       # целые числа
-        self.__color = []       # (список цветов формате RGB)
-        self.filled  = None     # (закрашенный, bool)
+    def __init__(self, color, *sides):
+        self.__sides = [0]          # список сторон (целые числа)
+        self.__color = [0, 0, 0]    # (список цветов формате RGB)
+        self.filled = None          # (закрашенный, bool)
+
+        set_color(self, color)
+        set_sides(self, sides)
 
     def __is_valid_color(self): # принимает параметры r, g, b, который проверяет корректность
         pass                    # переданных значений перед установкой нового цвета. Корректным цвет:
@@ -103,14 +107,23 @@ class Figure:
     def __len__(self):          # должен возвращать периметр фигуры.
         pass
 
-    def set_color(self):        # принимает параметры r, g, b - числа и изменяет атрибут __color
-        pass                    # на соответствующие значения, предварительно проверив их на корректность. Если введены некорректные данные,
-                                # то цвет остаётся прежним.
-    def get_color(self):
-        pass
+    def set_color(self, color):     # принимает параметры r, g, b - числа и изменяет атрибут __color на
+                                    # соответствующие значения, предварительно проверив их на корректность.
+                                    # Если введены некорректные данные, то цвет остаётся прежним.
 
-    def set_sides(self, *new_sides)  # должен принимать новые стороны, если их количество не равно
-        pass                         # sides_count, то не изменять, в противном случае - менять.
+        if color[0] >= 0 and color[0] <= 255 \
+                        and color[1] >= 0 and color[1] <= 255 \
+                        and color[2] >= 0 and color[2] <= 255:
+
+            self.__color[0] = color[0]
+            self.__color[1] = color[1]
+            self.__color[2] = color[2]
+
+    def get_color(self):
+        return self.__color
+
+    def set_sides(self, *new_sides):  # должен принимать новые стороны, если их количество не равно
+        pass                          # sides_count, то не изменять, в противном случае - менять.
 
     def get_sides(self):        # должен возвращать значение атрибута __sides
         pass
@@ -119,7 +132,7 @@ class Figure:
 class Circle:
     sides_count = 1
 
-    def __init__(self):
+    def __init__(self, color, sides):  # (Цвет, стороны)
         self.__radius = 0       # рассчитать исходя из длины окружности (одной единственной стороны).
 
     def get_square(self):       # возвращает площадь круга (можно рассчитать как через длину,
