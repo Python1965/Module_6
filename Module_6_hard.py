@@ -201,14 +201,14 @@ def start():
     triangle1.set_color(110, 132, 154)  # Изменится
     print(triangle1.get_color())
 
-    cube1.set_color(155, 70, 15)  # Не изменится
+    cube1.set_color( 300, 70, 15)  # Не изменится
     print(cube1.get_color())
 
     # Проверка на изменение сторон:
     circle1.set_sides(15)  # Изменится
     print(circle1.get_sides())
 
-    triangle1.set_sides(12, 12, 12)  # Bзменится
+    triangle1.set_sides(12, 12, 12)  # Изменится
     print(triangle1.get_sides())
 
     cube1.set_sides(5, 3, 12, 4, 5)  # Не изменится
