@@ -152,8 +152,11 @@ class Figure:
 class Circle(Figure):
     sides_count = 1
 
-    def __init__(self, color, *side):  # (Цвет, стороны)
-        super().__init__(color, side)
+    def __init__(self, color, *sides):  # (Цвет, стороны)
+        if len(sides) != 1:
+            sides = [1]
+
+        super().__init__(color, sides)
         self.__radius = self.get_sides()[0] / (2 * PI)      # рассчитать исходя из длины окружности
                                                             # (одной единственной стороны).
 
@@ -170,6 +173,9 @@ class Triangle(Figure):
     sides_count = 3
 
     def __init__(self, color, *sides):  # (Цвет, стороны)
+        if len(sides) != 3:
+            sides = [1] * 3
+
         super().__init__(color, sides)
 
     def get_square(self):       # возвращает площадь треугольника.(можно рассчитать по формуле Герона)
@@ -180,9 +186,12 @@ class Triangle(Figure):
 class Cube(Figure):
     sides_count = 12
 
-    def __init__(self, color, *side):  # (Цвет, стороны)
-        # Переопределить __sides сделав список из 12 одинаковых сторон (передаётся 1 сторона)
-        sides = list(side) * 12
+    def __init__(self, color, *sides):  # (Цвет, стороны)
+        if len(sides) != 1:
+            sides = [1]
+        sides = sides * 12  # Переопределить __sides сделав список из 12 одинаковых сторон
+                                 # (передаётся 1 сторона)
+
         super().__init__(color, sides)
 
     def get_volume(self):  #возвращает объём куба.
